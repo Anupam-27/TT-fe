@@ -15,6 +15,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 FROM nginx:1.23-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-stage /app/.next /usr/share/nginx/html/_next
-COPY --from=nginx-build /etc/nginx/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 8080
 CMD [ "nginx", "-g", "daemon off;" ]
