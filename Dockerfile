@@ -16,4 +16,4 @@ RUN npm run build
 # COPY nginx.conf /etc/nginx/nginx.conf
 # COPY --from=build-stage /app/.next /usr/share/nginx/html/_next
 # EXPOSE 8080
-CMD [ "nginx", "-g", "daemon off;" ]
+CMD [ "npm", "start" ]
