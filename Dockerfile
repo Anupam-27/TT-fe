@@ -11,7 +11,6 @@ RUN npm run build
 # Install Nginx
 FROM nginx:1.23-alpine AS nginx-build
 COPY nginx.conf /etc/nginx/nginx.conf
-RUN nginx -t
 
 #serve with Nginx
 FROM nginx:1.23-alpine
