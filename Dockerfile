@@ -10,6 +10,6 @@ RUN npm run build
 
 #serve with Nginx
 FROM nginx:1.23-alpine
-COPY --from=build-stage /app/out/index.html /usr/share/nginx/html
+COPY --from=build-stage /app/.next /usr/share/nginx/html/_next
 EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]
