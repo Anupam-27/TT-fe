@@ -27,4 +27,4 @@ jobs:
       - name: Delete old container
         run: docker rm -f gaming-fe-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 -e FE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} -e FE_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }} -e FE_URL=${{ secrets.NEXT_PUBLIC_S3_BASE_URL }} --name gaming-fe-container codehard04/tt-fe:latest 
+        run: docker run -d -p 3001:8080 -e FE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} -e FE_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }} -e FE_URL=${{ secrets.NEXT_PUBLIC_S3_BASE_URL }} --name gaming-fe-container codehard04/tt-fe:latest 
