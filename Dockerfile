@@ -9,7 +9,6 @@ COPY . .
 RUN npm run build
 
 # Install Nginx
-FROM nginx:1.23-alpine AS nginx-build
 COPY nginx.conf /etc/nginx/nginx.conf
 
 #serve with Nginx
@@ -17,5 +16,5 @@ FROM nginx:1.23-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-stage /app/.next /usr/share/nginx/html/_next
 COPY --from=nginx-build /etc/nginx/nginx.conf /etc/nginx/nginx.conf
-EXPOSE 80
+EXPOSE 8080
 CMD [ "nginx", "-g", "daemon off;" ]
