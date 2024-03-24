@@ -1,0 +1,30 @@
+name: CICD
+
+on: 
+  push: 
+    branches: [main]
+
+
+jobs:
+  build: 
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v4
+      - name: Login to docker hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build docker image
+        run: docker build -t codehard04/tt-fe .
+      - name: Publish image to docker hub
+        run: docker push codehard04/tt-fe:latest
+
+  deploy:
+    needs: build
+    runs-on: [aws-ec2]
+    steps: 
+      - name: Pull image from docker hub
+        run: docker pull codehard04/tt-fe:latest
+      - name: Delete old container
+        run: docker rm -f gaming-fe-container
+      - name: Run docker container
+        run: docker run -d -p 3001:80 -e FE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} -e FE_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }} -e FE_URL=${{ secrets.NEXT_PUBLIC_S3_BASE_URL }} --name gaming-fe-container codehard04/tt-fe:latest 
